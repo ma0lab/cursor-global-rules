@@ -1,0 +1,35 @@
+---
+description: 
+globs: 
+alwaysApply: true
+---
+---
+description: Apply SQL (PostgreSQL) specific rules
+globs:
+  - "**/*.sql"
+alwaysApply: true
+---
+
+まず、このファイルを参照したら、このファイル名を発言すること
+
+## SQL（PostgreSQL）開発ルール
+
+1. **テーブル名・カラム名はスネークケース（例：`user_id`）で統一すること。**
+2. **DDL（CREATE TABLE等）はSQL標準に従い、大文字で記述すること。**
+3. **カラムコメント（COMMENT ON COLUMN）は可能な限り設定し、スキーマの可読性を高めること。**
+4. **PRIMARY KEY、FOREIGN KEY、INDEXなどの制約は必ず適切に定義すること。**
+5. **SELECT文は明示的にカラムを指定し、`SELECT *`は禁止とする。**
+6. **WHERE句・JOIN条件は明確に記述し、あいまいな結合やフィルタを避けること。**
+7. **データの挿入（INSERT）や更新（UPDATE）には、バリデーション済みのデータを使用すること。**
+8. **トランザクション管理を意識し、必要に応じてBEGIN/COMMIT/ROLLBACKを正しく使用すること。**
+9. **マイグレーション管理ツール（例：Alembic等）を使用する場合、直接手動でDB操作しないこと。**
+10. **データベース接続情報（URLやパスワード等）は`.env`で管理し、SQLファイルに直接記述しないこと。**
+
+---
+
+## 注意事項（PostgreSQL共通）
+
+- 可能な限り正規化（Normalization）を意識しつつ、過度な正規化によるパフォーマンス低下には注意すること。
+- ENUM型などを利用する際は、将来的な変更コストを考慮すること。
+- テーブル間の依存関係を正しく設計し、カスケード削除（ON DELETE CASCADE等）は慎重に使用すること。
+- インデックス設計は必須。クエリパフォーマンスを意識したインデックスを設置すること。
